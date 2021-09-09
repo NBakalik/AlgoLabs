@@ -32,32 +32,32 @@ public class SortTest {
     public void shouldSortInAscOrderSortedArrayInAscOrder() {
         int[] sortedArray = {1, 2, 3, 4, 5, 6};
         QuickSort.quickSort(sortedArray, 0, sortedArray.length - 1, "asc");
-        Assert.assertEquals(20, QuickSort.swaps);
-        Assert.assertEquals(15, QuickSort.comparisons);
+        Assert.assertEquals(0, QuickSort.swaps);
+        Assert.assertEquals(30, QuickSort.comparisons);
     }
 
     @Test
     public void shouldSortInAscOrderSortedArrayInDescOrder() {
         int[] sortedArray = {6, 5, 4, 3, 2, 1};
         QuickSort.quickSort(sortedArray, 0, sortedArray.length - 1, "asc");
-        Assert.assertEquals(11, QuickSort.swaps);
-        Assert.assertEquals(15, QuickSort.comparisons);
+        Assert.assertEquals(3, QuickSort.swaps);
+        Assert.assertEquals(21, QuickSort.comparisons);
     }
 
     @Test
     public void shouldSortInDescOrderSortedArrayInAscOrder() {
         int[] sortedArray = {1, 2, 3, 4, 5, 6};
         QuickSort.quickSort(sortedArray, 0, sortedArray.length - 1, "desc");
-        Assert.assertEquals(11, QuickSort.swaps);
-        Assert.assertEquals(15, QuickSort.comparisons);
+        Assert.assertEquals(3, QuickSort.swaps);
+        Assert.assertEquals(21, QuickSort.comparisons);
     }
 
     @Test
     public void shouldSortInDescOrderSortedArrayInDescOrder() {
         int[] sortedArray = {6, 5, 4, 3, 2, 1};
         QuickSort.quickSort(sortedArray, 0, sortedArray.length - 1, "desc");
-        Assert.assertEquals(20, QuickSort.swaps);
-        Assert.assertEquals(15, QuickSort.comparisons);
+        Assert.assertEquals(0, QuickSort.swaps);
+        Assert.assertEquals(30, QuickSort.comparisons);
     }
 
 }

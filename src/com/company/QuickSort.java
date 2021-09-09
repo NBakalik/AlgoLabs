@@ -49,7 +49,7 @@ public class QuickSort {
                 if (arr[j] <= pivot) {
                     comparisons++;
                     if (i + 1 != j) {
-                        swap(arr, i, j);
+                        swap(arr, i + 1, j);
                     }
                     i++;
                 }
@@ -58,7 +58,7 @@ public class QuickSort {
                 if (arr[j] >= pivot) {
                     comparisons++;
                     if (i + 1 != j) {
-                        swap(arr, i, j);
+                        swap(arr, i + 1, j);
                     }
                     i++;
                 }
@@ -76,4 +76,5 @@ public class QuickSort {
         arr[b] = temp;
         swaps++;
     }
+    //java -classpath D:\Algo_labs\QuickSort\src com.company.QuickSort asc 1,2,3,4
 }
