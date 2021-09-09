@@ -6,18 +6,20 @@ public class QuickSort {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-
         int[] array = parseInput(args);
         quickSort(array, 0, array.length - 1, args[0]);
         long endTime = System.currentTimeMillis();
+        printInfo(array, endTime - startTime);
+    }
+
+    public static void printInfo(int[] array, long time) {
         System.out.println("QuickSort: ");
-        System.out.println("execution time: " + (endTime - startTime));
+        System.out.println("execution time: " + time);
         System.out.println("Comparisons: " + comparisons);
         System.out.println("Swaps: " + swaps);
         for (int val : array) {
             System.out.print(val + " ");
         }
-
     }
 
     public static int[] parseInput(String[] input) {
@@ -45,18 +47,26 @@ public class QuickSort {
             if (order.equals("asc")) {
                 comparisons++;
                 if (arr[j] <= pivot) {
+                    comparisons++;
+                    if (i + 1 != j) {
+                        swap(arr, i, j);
+                    }
                     i++;
-                    swap(arr, i, j);
                 }
             } else {
                 comparisons++;
                 if (arr[j] >= pivot) {
+                    comparisons++;
+                    if (i + 1 != j) {
+                        swap(arr, i, j);
+                    }
                     i++;
-                    swap(arr, i, j);
                 }
             }
         }
-        swap(arr, i + 1, end);
+        if (i + 1 != end) {
+            swap(arr, i + 1, end);
+        }
         return i + 1;
     }
 
