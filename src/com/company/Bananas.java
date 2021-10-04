@@ -1,28 +1,14 @@
 package com.company;
 
-import java.util.Arrays;
+public class Bananas {
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println(findK(new int[]{3, 6, 7, 11}, 8));
-        System.out.println(findK(new int[]{30, 11, 23, 4, 20}, 100));
-        System.out.println(findK(new int[]{30, 11, 23, 4, 20}, 6));
-    }
-
-    private static int findK(int[] piles, int hour) {
-        if (piles.length == hour) {
-            return findMax(piles);
-        }
-        int[] hours = new int[piles.length];
+    public static int findK(int[] piles, int hour) {
         for (int i = 1; i < findMax(piles); i++) {
-            for (int j = 0; j < piles.length; j++) {
-                if (i > piles[j])
-                    hours[j] = 1;
-                else
-                    hours[j] = piles[j] / i + (piles[j] % i > 0 ? 1 : 0);
+            int hoursSum = 0;
+            for (int pile : piles) {
+                hoursSum += pile / i + (pile % i > 0 ? 1 : 0);
             }
-            int sum = Arrays.stream(hours).sum();
-            if (sum <= hour) {
+            if (hoursSum <= hour) {
                 return i;
             }
         }
