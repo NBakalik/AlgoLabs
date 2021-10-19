@@ -1,59 +1,83 @@
 package com.company;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class Graph {
     private int size;
+    private int startPos;
     private LinkedList<Integer>[] adjList;
     private Queue<Integer> queue;
+    private int[] distances;
 
-    public Graph(int size) {
-        this.size = size;
-        queue = new LinkedList<>();
+    public Graph() {
+        getSize();
+        distances = new int[size];
         adjList = new LinkedList[size];
         for (int i = 0; i < size; i++) {
             adjList[i] = new LinkedList<>();
         }
+        readFile();
+        queue = new LinkedList<>();
     }
 
     public void add(int value, int neighbor) {
         adjList[value].add(neighbor);
     }
 
-    public void printBFS(int n) {
+    public int getLargestWay() {
         boolean[] nodes = new boolean[size];
-        int value;
-
-        queue.add(n);
-        nodes[n] = true;
+        int neighbor;
+        int current = startPos;
+        queue.add(current);
+        nodes[current] = true;
 
         while (!queue.isEmpty()) {
-            n = queue.poll();
-            System.out.print(n + " ");
-
-            for (int i = 0; i < adjList[n].size(); i++) {
-                value = adjList[n].get(i);
-                if (!nodes[value]) {
-                    nodes[value] = true;
-                    queue.add(value);
+            current = queue.poll();
+            for (int i = 0; i < adjList[current].size(); i++) {
+                neighbor = adjList[current].get(i);
+                if (!nodes[neighbor]) {
+                    distances[neighbor] = distances[current] + 1;
+                    nodes[neighbor] = true;
+                    queue.add(neighbor);
                 }
             }
+        }
+        return Arrays.stream(distances).max().getAsInt();
+    }
+
+    public void readFile() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"))) {
+            String line = bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+                int value = Integer.parseInt(line.split(" ")[0]);
+                int neighbor = Integer.parseInt(line.split(" ")[1]);
+                add(value, neighbor);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void getSize() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"))) {
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            String line = bufferedReader.readLine();
+            startPos = Integer.parseInt(line.split(" ")[1]);
+            while ((line = bufferedReader.readLine()) != null) {
+                arrayList.add(Integer.parseInt(line.split(" ")[0]));
+            }
+            size = Collections.max(arrayList) + 1;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph(5);
-
-        graph.add(0, 1);
-        graph.add(0, 4);
-        graph.add(0, 3);
-        graph.add(1, 2);
-        graph.add(1, 0);
-        graph.add(2, 1);
-        graph.add(3, 0);
-        graph.add(4, 0);
-
-        graph.printBFS(0);
+        Graph graph = new Graph();
+        System.out.println(graph.getLargestWay());
     }
 }
