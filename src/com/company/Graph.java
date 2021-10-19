@@ -19,7 +19,6 @@ public class Graph {
         for (int i = 0; i < size; i++) {
             adjList[i] = new LinkedList<>();
         }
-        readFile();
         queue = new LinkedList<>();
     }
 
@@ -48,8 +47,8 @@ public class Graph {
         return Arrays.stream(distances).max().getAsInt();
     }
 
-    public void readFile() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"))) {
+    public void readFile(String fileName) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line = bufferedReader.readLine();
             while ((line = bufferedReader.readLine()) != null) {
                 int value = Integer.parseInt(line.split(" ")[0]);
@@ -78,6 +77,7 @@ public class Graph {
 
     public static void main(String[] args) {
         Graph graph = new Graph();
+        graph.readFile("input.txt");
         System.out.println(graph.getLargestWay());
     }
 }
